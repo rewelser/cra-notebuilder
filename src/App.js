@@ -101,7 +101,7 @@ let q1 = {
     "title": "This is a Title!",
     // "preliminary_description": "this is a description. \n it will go inside a textarea. \n ..... \n fuggit.",
     // "preliminary_description": "012345\n678910",
-    "preliminary_description": "Daniel: Ahhh yes! We've been expecting you. There are several ways to do this and the choice is yours.\nEvan: Pussy dick!",
+    "preliminary_description": "Daniel: Ahhh yes! We've been expecting you. There are several ways to do this and the choice is yours.\nEvan: Dussy pick!",
     // "preliminary_description": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     "Story_tags": {},
     "Turn_tags": {},
