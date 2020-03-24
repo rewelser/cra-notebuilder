@@ -1,0 +1,76 @@
+firebase call structure:
+
+    componentDidMount() {
+        const root_ref = firebase.database().ref().child('users');
+        const user_ref = root_ref.child(this.state.userid);
+        user_ref.on('value', snap => {
+            console.log(snap.val().default_notebook);
+            this.setState({
+                default_notebook: snap.val().default_notebook
+            });
+        });
+    }
+
+    setDefault(type_key) {
+        // const user_data = { ...this.state.user_notebooks };
+        // user_data.default_notebook = type_key;
+        // this.setState({ user_data: user_data });
+        const root_ref = firebase.database().ref().child('users');
+        const user_ref = root_ref.child(this.state.userid);
+        // firebase.database().ref('users/' + userId).set({
+        //     default_notebook: type_key
+        //   });
+        firebase.database().ref(user_ref).set({
+            default_notebook: type_key
+        });
+    }
+
+
+        //     curr_tag: {                   // object that we want to update
+        //         ...prevState.curr_tag,    // keep all other key-value pairs
+        //         [name]: value             // update the value of specific key
+        //     }
+
+
+
+        // const updates = {};
+        // updates["/default_notebook/"] = post_data;
+        // // var newPostKey = user_ref.push().key;
+        // console.log(newPostKey);
+        // firebase.database().ref().update(updates);
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    OLD (from old old old js)
+
+// Get a reference to the database service
+/*var db = firebase.database();
+
+
+function writeUserData(userId, name, email, imageUrl) {
+  firebase.database().ref('users/' + userId).set({
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  });
+}*/
+
+/*writeUserData("testid", "testname", "testemail", "testimgurl");*/
+
+/*function writeUserData(title, color) {
+  firebase.database().ref('widgets/').set({
+    title: title,
+    color: color
+  });
+}
+
+writeUserData("Title", "red");*/
+
+/*function writeUserData(titleA, colorA) {
+  firebase.database().ref('users/' + "userId").set({
+    title: titleA,
+    color: colorA
+  });
+}
+
+writeUserData("Title", "red");*/

@@ -1,0 +1,33 @@
+
+A,B,C,[D,E],F,G,[H,I,J],K,L,M,N,[O,P,Q,R,S],T,U,V
+...[.........................]...................
+_______(1)________(2)_______________(3)__________
+
+(1):
+    prev_interfered = false
+    interferes = true
+    startsWithin = false
+    endsWithin = false
+
+
+(2):
+    prev_end = 5
+    iB? N
+    sW? N
+    eW? N
+    nS? Y
+    nW? N
+
+
+
+
+
+
+
+
+
+
+
+.[......]................[...]........[......]
+
+]

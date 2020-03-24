@@ -1,0 +1,36 @@
+navbuttons styling
+
+        <section id="nav_menu_btns">
+            <div id="lightdark_switch_container">
+                <label class="switch">
+                    <input type="checkbox" id="darkmode_switch">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <span class="input_width_placeholder"></span>
+            <button class="material-icons">style</button>
+        </section>
+
+
+(new button)
+element.style {
+font-size: xx-large;
+}
+
+
+#lightdark_switch_container {
+  height: 100%;
+  display: flex;
+  /* padding: 10px; */
+}
+
+
+#nav_menu_btns {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  background-color: transparent;
+  padding: 15px;
+}
