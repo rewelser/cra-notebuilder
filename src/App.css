@@ -1529,7 +1529,7 @@ width: 100%;
 }
 
 .type_subtype_optionsdrawer_wrapper.open {
-  height: 50px;
+  height: 200px;
 }
 
 .type_subtype_optionsdrawer {
@@ -1553,8 +1553,9 @@ width: 100%;
 }
 
 .optionsdrawer_top_btns {
-  display: flex;
-  justify-content: flex-end;
+  /* display: flex;
+  justify-content: flex-end; */
+  float: right;
 }
 
 .close_optionsdrawer_btn {
@@ -1568,6 +1569,22 @@ width: 100%;
   border-radius: 50%;
   font-size: 16px;
   cursor: pointer;
+}
+
+.color_pick_btn_container {
+  /* display: inline-flex; */
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-evenly; */
+  padding: 10px;
+}
+
+.color_pick_btn {
+  height: 25px;
+  width: 25px;
+  padding: 0;
+  margin: 5px;
+  border-radius: 50%;
 }
 
 .add_type_gen_btn,

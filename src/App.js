@@ -1067,7 +1067,71 @@ class NotebookAddEdit extends React.Component {
             renaming: "",
             orphanables: [],
             drawer_open: [false, ""],
-            default_notebook: ""
+            default_notebook: "",
+            color_choices: [
+                "#DCE775",
+                "#FF8A65",
+                "#F47373",
+                "#BA68C8",
+                "#2CCCE4",
+                "#37D67A",
+                // "#FCB900",
+                // "#FF6900",
+                // "#EB144C",
+                // "#9900EF",
+                // "#0693E3",
+                // "#00D084",
+                "#F78DA7",
+                "#8ED1FC",
+                "#7BDCB5",
+                "#F44336",
+                "#E91E63",
+                "#9C27B0",
+                "#673AB7",
+                "#3F51B5",
+                "#2196F3",
+                "#03A9F4",
+                "#00BCD4",
+                "#009688",
+                "#4CAF50",
+                "#8BC34A",
+                "#CDDC39",
+                "#FFEB3B",
+                "#FFC107",
+                "#FF9800",
+                "#FF5722"
+                // "rgb(244, 115, 115)",
+                // "rgb(244, 67, 54)",
+                // "rgb(255, 87, 34)",
+                // "rgb(255, 138, 101)",
+                // "rgb(255, 105, 0)",
+                // "rgb(255, 152, 0)",
+                // "rgb(252, 185, 0)",
+                // "rgb(255, 193, 7)",
+                // "rgb(255, 235, 59)",
+                // "rgb(205, 220, 57)",
+                // "rgb(220, 231, 117)",
+                // "rgb(139, 195, 74)",
+                // "rgb(76, 175, 80)",
+                // "rgb(55, 214, 122)",
+                // "rgb(123, 220, 181)",
+                // "rgb(0, 208, 132)",
+                // "rgb(0, 150, 136)",
+                // "rgb(0, 188, 212)",
+                // "rgb(44, 204, 228)",
+                // "rgb(3, 169, 244)",
+                // "rgb(6, 147, 227)",
+                // "rgb(142, 209, 252)",
+                // "rgb(33, 150, 243)",
+                // "rgb(63, 81, 181)",
+                // "rgb(103, 58, 183)",
+                // "rgb(153, 0, 239)",
+                // "rgb(156, 39, 176)",
+                // "rgb(186, 104, 200)",
+                // "rgb(233, 30, 99)",
+                // "rgb(235, 20, 76)",
+                // "rgb(247, 141, 167)"
+            ]
         }
         this.input_ref = React.createRef();
         this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -1421,6 +1485,7 @@ class NotebookAddEdit extends React.Component {
                                                     subindex={-1}
                                                     closeOptionsDrawer={() => this.closeOptionsDrawer()}
                                                     colorPick={(val, i, subi) => this.colorPick(val, i, subi)}
+                                                    color_choices={this.state.color_choices}
                                                 />
                                             </section>
                                             <section className="subtype_gen_section">
@@ -1491,6 +1556,7 @@ class NotebookAddEdit extends React.Component {
                                                                 subindex={subindex}
                                                                 closeOptionsDrawer={() => this.closeOptionsDrawer()}
                                                                 colorPick={(val, i, subi) => this.colorPick(val, i, subi)}
+                                                                color_choices={this.state.color_choices}
                                                             />
                                                         </section>
                                                     )
@@ -1544,7 +1610,9 @@ class TypeSubtypeOptionsDrawer extends React.Component {
                             clear
                         </button>
                     </div>
-                    <ColorPicker />
+                    <ColorPicker
+                        color_choices={this.props.color_choices}
+                    />
                 </section>
             </div>
         )
@@ -1555,7 +1623,17 @@ class ColorPicker extends React.Component {
     render() {
         return (
             <>
-                <h2>pick a color...</h2>
+                <section className="color_pick_btn_container">
+                    {
+                        this.props.color_choices.map((color) =>
+                            <button
+                                key={color}
+                                className={`color_pick_btn`}
+                                style={{ backgroundColor: color }}
+                            ></button>
+                        )
+                    }
+                </section>
             </>
         )
     };
