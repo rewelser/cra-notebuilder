@@ -10,7 +10,6 @@
     "focus-trap-react": "^6.0.0",
     "lodash.clonedeep": "^4.5.0",
     "react": "^16.13.0",
-    "react-color": "^2.18.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0"
   },
