@@ -31,7 +31,7 @@ const type_metadata = {
         "Story": null,
         "Turn": null
     },
-    "color_schemes": {
+    "color_scheme": {
         "Quality": "#ffdaea",
         "Passage": "#009688",
         "Relation": "#8BC34A",
@@ -555,11 +555,11 @@ class App extends React.Component {
         if (this.state.darkmode_state !== "darkmode") {
             lightdarkstyle = {
                 color: "rgba(0,0,0,0.7)",
-                backgroundColor: this.state.app_type_metadata.color_schemes[tagtype],
+                backgroundColor: this.state.app_type_metadata.color_scheme[tagtype],
             }
         } else {
             lightdarkstyle = {
-                color: this.state.app_type_metadata.color_schemes[tagtype],
+                color: this.state.app_type_metadata.color_scheme[tagtype],
                 // backgroundColor: "rgba(0,0,0,0.2)",
                 backgroundColor: "#1a1a1d"
             }
@@ -572,11 +572,11 @@ class App extends React.Component {
         if (this.state.darkmode_state !== "darkmode") {
             lightdarkstyle = {
                 color: "rgba(0,0,0,0.7)",
-                backgroundColor: this.state.app_type_metadata.color_schemes[tagtype],
+                backgroundColor: this.state.app_type_metadata.color_scheme[tagtype],
             }
         } else {
             lightdarkstyle = {
-                boxShadow: "0 0 0 2pt" + this.state.app_type_metadata.color_schemes[tagtype] + "88",
+                boxShadow: "0 0 0 2pt" + this.state.app_type_metadata.color_scheme[tagtype] + "88",
                 // backgroundColor: "rgba(0,0,0,0.2)",
                 backgroundColor: "transparent"
             }
@@ -587,7 +587,7 @@ class App extends React.Component {
     lightdarkColorCalcRanges(tagtype) {
         let lightdarkstyle = {
             color: "rgba(0,0,0,0.7)",
-            backgroundColor: this.state.app_type_metadata.color_schemes[tagtype]
+            backgroundColor: this.state.app_type_metadata.color_scheme[tagtype]
         }
         return lightdarkstyle;
     }
@@ -815,6 +815,7 @@ class Menu extends React.Component {
                     lightdarkColorCalcRanges={(tagtype) => this.props.lightdarkColorCalcRanges(tagtype)}
                     toggleModal={(modal_args) => this.props.toggleModal(modal_args)}
                     modal_return={this.props.modal_return}
+                    darkmode_state={this.props.darkmode_state}
                 />
             </section>
         );
@@ -838,7 +839,9 @@ class ActivityPanelSlider extends React.Component {
                         modal_return={this.props.modal_return}
                     />
                 ) : (
-                        <NotebookPanel />
+                        <NotebookPanel
+                            darkmode_state={this.props.darkmode_state}
+                        />
                     )}
             </section>
         );
@@ -875,7 +878,8 @@ class NotebookPanel extends React.Component {
             // user_data: _.cloneDeep(user_data),
             user_data: {},
             notebook_key: -1,
-            default_notebook: ""
+            default_notebook: "",
+            remote: firebase.database().ref()
         }
     }
 
@@ -914,7 +918,27 @@ class NotebookPanel extends React.Component {
         // })
 
 
-        firebase.database().ref().on('value', snap => {
+
+
+
+        // const remote = firebase.database().ref();
+
+
+        // let notebooks_change = this.state.remote.on('value', snap => {
+        //     const user_ref = snap.child('users').child(this.state.userid);
+        //     const notebooks_ref = snap.child('notebooks_surface_metadata');
+        //     this.setState({
+        //         default_notebook: user_ref.child("default_notebook").val(),
+        //         user_notebooks: user_ref.child("user_notebooks").val(),
+        //         user_notebook_objects: Object.fromEntries(Object.entries(user_ref.child("user_notebooks").val()).map(obj => {
+        //             return [notebooks_ref.child(obj[0]).key, notebooks_ref.child(obj[0]).val()];
+        //         }))
+        //     })
+        // });
+        // this.state.remote.off('value', notebooks_change);
+
+
+        this.remote = firebase.database().ref().on('value', snap => {
             const user_ref = snap.child('users').child(this.state.userid);
             const notebooks_ref = snap.child('notebooks_surface_metadata');
             this.setState({
@@ -924,7 +948,14 @@ class NotebookPanel extends React.Component {
                     return [notebooks_ref.child(obj[0]).key, notebooks_ref.child(obj[0]).val()];
                 }))
             })
-        })
+        });
+        // this.state.remote.off('value', notebooks_change);
+
+    }
+
+    componentWillUnmount() {
+        this.remote.off();
+        console.log("toothy")
     }
 
     setDefault(type_key) {
@@ -1032,6 +1063,7 @@ class NotebookPanel extends React.Component {
                             user_notebooks={this.state.user_notebooks}
                             notebook_key={this.state.notebook_key}
                             returnToList={() => this.returnToList()}
+                            darkmode_state={this.props.darkmode_state}
                         />
                     )
                 }
@@ -1055,15 +1087,16 @@ class NotebookAddEdit extends React.Component {
             type_subtype_gens: [{
                 name: initial_type_name,
                 title: "Note",
+                color: "cadetblue",
                 subtypes: []
             }],
             note_type: initial_type_name,
             type_subtype_metadata: {
                 types_subtypes: {},
-                color_schemes: {}
+                color_scheme: {}
             },
             generic_tag: {},
-            color_btn_clicked: "",
+            colors_btn_clicked: "",
             renaming: "",
             orphanables: [],
             drawer_open: [false, ""],
@@ -1099,39 +1132,16 @@ class NotebookAddEdit extends React.Component {
                 "#FFEB3B",
                 "#FFC107",
                 "#FF9800",
-                "#FF5722"
-                // "rgb(244, 115, 115)",
-                // "rgb(244, 67, 54)",
-                // "rgb(255, 87, 34)",
-                // "rgb(255, 138, 101)",
-                // "rgb(255, 105, 0)",
-                // "rgb(255, 152, 0)",
-                // "rgb(252, 185, 0)",
-                // "rgb(255, 193, 7)",
-                // "rgb(255, 235, 59)",
-                // "rgb(205, 220, 57)",
-                // "rgb(220, 231, 117)",
-                // "rgb(139, 195, 74)",
-                // "rgb(76, 175, 80)",
-                // "rgb(55, 214, 122)",
-                // "rgb(123, 220, 181)",
-                // "rgb(0, 208, 132)",
-                // "rgb(0, 150, 136)",
-                // "rgb(0, 188, 212)",
-                // "rgb(44, 204, 228)",
-                // "rgb(3, 169, 244)",
-                // "rgb(6, 147, 227)",
-                // "rgb(142, 209, 252)",
-                // "rgb(33, 150, 243)",
-                // "rgb(63, 81, 181)",
-                // "rgb(103, 58, 183)",
-                // "rgb(153, 0, 239)",
-                // "rgb(156, 39, 176)",
-                // "rgb(186, 104, 200)",
-                // "rgb(233, 30, 99)",
-                // "rgb(235, 20, 76)",
-                // "rgb(247, 141, 167)"
-            ]
+                "#FF5722",
+                "#ffdaea", // start of sunset colors
+                "#f5beff",
+                "#ddbeff",
+                "#c1beff",
+                "#bed5ff",
+                "#cae5f5",
+                "#ff6d6f",
+                "#e5ffaa"
+            ],
         }
         this.input_ref = React.createRef();
         this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -1139,9 +1149,14 @@ class NotebookAddEdit extends React.Component {
         this.handleTypeNameChange = this.handleTypeNameChange.bind(this);
     }
 
+
+
+
     componentDidMount() {
+        const remote = firebase.database().ref();
         if (this.props.notebook_key !== -1) {
-            firebase.database().ref().on('value', snap => {
+            let notebook_addedit_change = remote.once('value', snap => {
+                console.log("hererer")
                 const user_ref = snap.child('users').child("fishy");
                 const type_subtype_metadata = snap.child("notebooks_type-subtype_metadata").child(this.props.notebook_key);
                 const generic_tag = snap.child("notebooks_generictags").child(this.props.notebook_key);
@@ -1160,10 +1175,12 @@ class NotebookAddEdit extends React.Component {
                     let type_subtype_gen = {
                         name: key,
                         title: type_subtype_metadata.child("name_titles_table").child(key).val(),
+                        color: type_subtype_metadata.child("color_scheme").child(key).val(),
                         subtypes: val !== "" ? val.map((name) => {
                             return {
                                 name: name,
-                                title: type_subtype_metadata.child("name_titles_table").child(name).val()
+                                title: type_subtype_metadata.child("name_titles_table").child(name).val(),
+                                color: type_subtype_metadata.child("color_scheme").child(name).val(),
                             }
                         }) : [],
                     }
@@ -1175,9 +1192,15 @@ class NotebookAddEdit extends React.Component {
                     default_subtype: generic_tag.child("meta_subtype").val(),
                     note_type: type_subtype_metadata.child("note_type").val()
                 });
-            })
+            });
+            // remote.off('value', notebook_addedit_change);
         }
     }
+
+    // componentWillUnmount() {
+    //     this.state.sub.off();
+    //     console.log("gotdamn")
+    // }
 
     handleTitleChange(e) {
         const target = e.target;
@@ -1229,6 +1252,7 @@ class NotebookAddEdit extends React.Component {
         type_subtype_gens.push({
             name: name,
             title: title,
+            color: "cadetblue",
             subtypes: []
         });
         name_titles_table[name] = title;
@@ -1245,7 +1269,8 @@ class NotebookAddEdit extends React.Component {
         const title = "New Subtype";
         type_subtype_gens[index]["subtypes"].push({
             name: name,
-            title: title
+            title: title,
+            color: "cadetblue"
         });
         name_titles_table[name] = title;
         this.setState({
@@ -1310,18 +1335,7 @@ class NotebookAddEdit extends React.Component {
         }
     }
 
-    colorPick(val, i, subi) {
-        const type_subtype_gens = _.cloneDeep(this.state.type_subtype_gens);
 
-        this.setState({ type_subtype_gens: type_subtype_gens });
-    }
-
-    toggleColorBtnClicked(name) {
-        this.setState({
-            color_btn_clicked: name,
-            drawer_open: [true, name]
-        });
-    }
 
     toggleRenaming(name) {
         if (this.state.renaming === name) {
@@ -1364,7 +1378,7 @@ class NotebookAddEdit extends React.Component {
 
     closeOptionsDrawer() {
         this.setState({
-            color_btn_clicked: "",
+            colors_btn_clicked: "",
             drawer_open: [false, ""]
         });
     }
@@ -1377,6 +1391,36 @@ class NotebookAddEdit extends React.Component {
             orphanables.push(name);
         }
         this.setState({ orphanables: orphanables });
+    }
+
+    lightdarkColorCalc(index, subindex) {
+        let tagcolor = (subindex === -1) ? this.state.type_subtype_gens[index].color : this.state.type_subtype_gens[index].subtypes[subindex].color;
+        let lightdarkstyle;
+        if (this.props.darkmode_state !== "darkmode") {
+            lightdarkstyle = {
+                color: "rgba(0,0,0,0.7)",
+                backgroundColor: tagcolor,
+            }
+        } else {
+            lightdarkstyle = {
+                color: tagcolor,
+                backgroundColor: "#1a1a1d"
+            }
+        }
+        return lightdarkstyle;
+    }
+
+    toggleColorsBtnClicked(color, name, index, subindex) {
+        this.setState({
+            colors_btn_clicked: name,
+            drawer_open: [true, name]
+        });
+    }
+
+    setColor(color, index, subindex) {
+        const type_subtype_gens = _.cloneDeep(this.state.type_subtype_gens);
+        subindex === -1 ? type_subtype_gens[index].color = color : type_subtype_gens[index].subtypes[subindex].color = color;
+        this.setState({ type_subtype_gens: type_subtype_gens });
     }
 
     render() {
@@ -1435,7 +1479,12 @@ class NotebookAddEdit extends React.Component {
                                                             className="type_subtype_title"
                                                             onClick={() => this.toggleRenaming(type_subtype.name)}
                                                         >
-                                                            {type_subtype.title}
+                                                            <span
+                                                                className="tag_item lightdark"
+                                                                style={this.lightdarkColorCalc(index, -1)}
+                                                            >
+                                                                {type_subtype.title}
+                                                            </span>
                                                         </span>
                                                         :
                                                         <input
@@ -1458,10 +1507,10 @@ class NotebookAddEdit extends React.Component {
                                                     }
                                                     <div className="type_subtype_color_btn_container">
                                                         <button
-                                                            className={`type_subtype_color_btn noselect material-icons ${type_subtype.name === this.state.color_btn_clicked ? "clicked" : ""}`}
-                                                            onClick={() => this.toggleColorBtnClicked(type_subtype.name)}
+                                                            className={`type_subtype_color_btn noselect ${type_subtype.name === this.state.colors_btn_clicked ? "clicked" : ""}`}
+                                                            style={{ backgroundColor: type_subtype.color, color: type_subtype.color }}
+                                                            onClick={() => this.toggleColorsBtnClicked(type_subtype.color, type_subtype.name, index, -1)}
                                                         >
-                                                            palette
                                                         </button>
                                                     </div>
                                                     <button
@@ -1484,8 +1533,10 @@ class NotebookAddEdit extends React.Component {
                                                     index={index}
                                                     subindex={-1}
                                                     closeOptionsDrawer={() => this.closeOptionsDrawer()}
-                                                    colorPick={(val, i, subi) => this.colorPick(val, i, subi)}
+                                                    color={type_subtype.color}
                                                     color_choices={this.state.color_choices}
+                                                    setColor={(color, index, subindex) => this.setColor(color, index, subindex)}
+                                                    colors_btn_clicked={this.state.colors_btn_clicked}
                                                 />
                                             </section>
                                             <section className="subtype_gen_section">
@@ -1512,7 +1563,12 @@ class NotebookAddEdit extends React.Component {
                                                                         className="type_subtype_title"
                                                                         onClick={() => this.toggleRenaming(subtype.name)}
                                                                     >
-                                                                        {subtype.title}
+                                                                        <span
+                                                                            className="tag_item lightdark"
+                                                                            style={this.lightdarkColorCalc(index, subindex)}
+                                                                        >
+                                                                            {subtype.title}
+                                                                        </span>
                                                                     </span>
                                                                     :
                                                                     <input
@@ -1526,10 +1582,10 @@ class NotebookAddEdit extends React.Component {
                                                                 }
                                                                 <div className="type_subtype_color_btn_container">
                                                                     <button
-                                                                        className={`type_subtype_color_btn noselect material-icons ${subtype.name === this.state.color_btn_clicked ? "clicked" : ""}`}
-                                                                        onClick={() => this.toggleColorBtnClicked(subtype.name)}
+                                                                        className={`type_subtype_color_btn noselect ${subtype.name === this.state.colors_btn_clicked ? "clicked" : ""}`}
+                                                                        style={{ backgroundColor: subtype.color, color: subtype.color }}
+                                                                        onClick={() => this.toggleColorsBtnClicked(subtype.color, subtype.name, index, subindex)}
                                                                     >
-                                                                        palette
                                                                     </button>
                                                                 </div>
                                                                 <button
@@ -1555,8 +1611,10 @@ class NotebookAddEdit extends React.Component {
                                                                 index={index}
                                                                 subindex={subindex}
                                                                 closeOptionsDrawer={() => this.closeOptionsDrawer()}
-                                                                colorPick={(val, i, subi) => this.colorPick(val, i, subi)}
+                                                                color={subtype.color}
                                                                 color_choices={this.state.color_choices}
+                                                                setColor={(color, index, subindex) => this.setColor(color, index, subindex)}
+                                                                colors_btn_clicked={this.state.colors_btn_clicked}
                                                             />
                                                         </section>
                                                     )
@@ -1598,20 +1656,49 @@ class NotebookAddEdit extends React.Component {
 }
 
 class TypeSubtypeOptionsDrawer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            drawer_height: 0,
+            drawer_height_clicked: 0
+        }
+        this.setRef = this.setRef.bind(this);
+
+    }
+
+    componentDidMount() {
+        this.setState({ drawer_height_clicked: this.child_ref_current.offsetHeight });
+    }
+
+    setRef(current) {
+        this.child_ref_current = current;
+    }
+
     render() {
         return (
-            <div className={`type_subtype_optionsdrawer_wrapper ${(this.props.drawer_open[0] === true && this.props.drawer_open[1] === this.props.name) ? "open" : ""}`}>
+            <div
+                className={`type_subtype_optionsdrawer_wrapper ${(this.props.drawer_open[0] === true && this.props.drawer_open[1] === this.props.name) ? "open" : ""}`}
+                style={{ height: ((this.props.drawer_open[0] === true && this.props.drawer_open[1] === this.props.name) ? this.state.drawer_height_clicked : this.state.drawer_height) + "px" }}
+            >
                 <section className={`type_subtype_optionsdrawer lightdark`} >
-                    <div className="optionsdrawer_top_btns">
+                    <section className="optionsdrawer_top_btns">
                         <button
                             className="close_optionsdrawer_btn material-icons"
                             onClick={this.props.closeOptionsDrawer}
                         >
                             clear
                         </button>
-                    </div>
+                    </section>
                     <ColorPicker
+                        name={this.props.name}
+                        index={this.props.index}
+                        subindex={this.props.subindex}
+                        color={this.props.color}
                         color_choices={this.props.color_choices}
+                        closeOptionsDrawer={() => this.props.closeOptionsDrawer()}
+                        setRef={this.setRef}
+                        setColor={(color, index, subindex) => this.props.setColor(color, index, subindex)}
+                        colors_btn_clicked={this.props.colors_btn_clicked}
                     />
                 </section>
             </div>
@@ -1622,19 +1709,27 @@ class TypeSubtypeOptionsDrawer extends React.Component {
 class ColorPicker extends React.Component {
     render() {
         return (
-            <>
-                <section className="color_pick_btn_container">
+            <section className="color_picker_section">
+                <section
+                    className="color_picker_btn_container"
+                    ref={this.props.setRef}
+                >
                     {
                         this.props.color_choices.map((color) =>
                             <button
                                 key={color}
-                                className={`color_pick_btn`}
-                                style={{ backgroundColor: color }}
+                                className={`color_pick_btn ${color === this.props.color ? "clicked" : ""}`}
+                                style={{ backgroundColor: color, color: color }}
+                                onClick={() => this.props.setColor(color, this.props.index, this.props.subindex)}
                             ></button>
                         )
                     }
                 </section>
-            </>
+                <section className="color_picker_drawer_close">
+
+                </section>
+            </section>
+
         )
     };
 }
