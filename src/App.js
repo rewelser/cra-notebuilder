@@ -210,122 +210,6 @@ class SingleNote extends React.Component {
         this.state.clicked_class === "clicked" ? this.setState({ clicked_class: "" }) : this.setState({ clicked_class: "clicked" });
     }
 
-    // handleDescrClick(e) {
-    //     let ranges = [];
-    //     if (window.getSelection) {
-
-    //         let range = window.getSelection().getRangeAt(0);
-    //         let start = range.startOffset;
-    //         let end = range.endOffset;
-    //         let start_node = range.startContainer;
-    //         let end_node = range.endContainer;
-
-    //         if (!range.collapsed && end !== 0) {
-    //             let desc = this.props.data_obj.preliminary_description;
-
-    //             let length_start = 0;
-    //             for (let i = 0; i < this.descrarea_ref.current.childNodes.length; i++) {
-    //                 let childnode = this.descrarea_ref.current.childNodes[i];
-    //                 if (childnode.nodeName === "MARK") {
-    //                     if (childnode.childNodes[0] === start_node) {
-    //                         break;
-    //                     } else {
-    //                         length_start += childnode.childNodes[0].textContent.length;
-    //                     }
-    //                 } else if (childnode.nodeName === "#text") {
-    //                     if (childnode === start_node) {
-    //                         length_start += start;
-    //                         break;
-    //                     } else {
-    //                         length_start += childnode.textContent.length;
-    //                     }
-    //                 }
-    //             }
-
-    //             console.log(length_start);
-
-
-    //             let length_end = 0;
-    //             for (let i = 0; i < this.descrarea_ref.current.childNodes.length; i++) {
-    //                 let childnode = this.descrarea_ref.current.childNodes[i];
-    //                 if (childnode.nodeName === "MARK") {
-    //                     if (childnode.childNodes[0] === end_node) {
-    //                         length_end += childnode.childNodes[0].length;
-    //                         break;
-    //                     } else {
-    //                         length_end += childnode.childNodes[0].textContent.length;
-    //                     }
-    //                 } else if (childnode.nodeName === "#text") {
-    //                     if (childnode === end_node) {
-    //                         length_end += end;
-    //                         break;
-    //                     } else {
-    //                         length_end += childnode.textContent.length;
-    //                     }
-    //                 }
-    //             }
-
-    //             console.log(length_end);
-
-
-    //             let new_text = (
-    //                 <>
-    //                     {desc.substring(0, length_start)}
-    //                     <mark>
-    //                         {/* {range.toString()} */}
-    //                         {desc.substring(length_start, length_end)}
-    //                     </mark>
-    //                     {desc.substring(length_end, desc.length)}
-    //                 </>
-    //             )
-    //             console.log("----------------------------");
-    //             console.log(new_text);
-    //             console.log(new_text.props.children[0]);
-    //             console.log(new_text.props.children[1].props.children);
-    //             console.log(new_text.props.children[2]);
-
-    //             this.setState({ new_text: new_text });
-    //         }
-
-    //     }
-    // }
-
-
-    // componentDidMount() {
-    //     Object.entries(this.props.tagsearches).map(([type_key, type_value]) =>
-    //         type_value.map(tagsearch =>
-    //             Object.entries(findObj(this.props.data_obj, tagsearch)[tagsearch]).map(([type_key, type_value]) => {
-    //                 // console.log(type_value.substrings);
-    //                 let desc = this.props.data_obj.preliminary_description;
-    //                 let buffer = [];
-    //                 let prev_end = 0;
-    //                 if (type_value.substrings.length) {
-    //                     for (let i = 0; i < type_value.substrings.length; i++) {
-    //                         let range = type_value.substrings[i].split(",");
-    //                         if (i === 0) {
-    //                             buffer.push(desc.substring(0, range[0]));
-    //                         } else {
-    //                             buffer.push(desc.substring(prev_end, range[0]));
-    //                         }
-    //                         prev_end = range[1];
-    //                         buffer.push(
-    //                             <mark>{desc.substring(range[0], range[1])}</mark>
-    //                         )
-    //                         // console.log(range[0]);
-    //                         // console.log(range[1]);
-    //                         if (i + 1 === type_value.substrings.length) {
-    //                             buffer.push(desc.substring(range[1], desc.length));
-    //                         }
-    //                     }
-    //                     this.setState({ new_text: buffer });
-    //                 }
-    //                 console.log(buffer);
-
-    //             })
-    //         )
-    //     )
-    // }
-
     toggleHighlightRanges(tagsearch_type_key, type_value) {
         // console.log(type_value.substrings);
         console.log(tagsearch_type_key);
@@ -380,44 +264,6 @@ class SingleNote extends React.Component {
 
         }
 
-        // if (tagsearch_type_key !== this.state.tag_ranges_showed) {
-        //     this.setState({ tag_ranges_showed: tagsearch_type_key });
-        //     let desc = this.props.data_obj.preliminary_description;
-        //     let buffer = [];
-        //     let prev_end = 0;
-        //     if (type_value.substrings.length) {
-        //         for (let i = 0; i < type_value.substrings.length; i++) {
-        //             let range = type_value.substrings[i].split(",");
-        //             if (i === 0) {
-        //                 buffer.push(desc.substring(0, range[0]));
-        //             } else {
-        //                 buffer.push(desc.substring(prev_end, range[0]));
-        //             }
-        //             prev_end = range[1];
-        //             buffer.push(
-        //                 <mark
-        //                     className="ranges_mark"
-        //                     key={`${tagsearch_type_key}_${i}`}
-        //                     style={this.props.lightdarkColorCalcRanges(type_value.tagsearch.replace("_tags", ""))}
-        //                 >
-        //                     {desc.substring(range[0], range[1])}
-        //                 </mark>
-        //             )
-        //             // console.log(range[0]);
-        //             // console.log(range[1]);
-        //             if (i + 1 === type_value.substrings.length) {
-        //                 buffer.push(desc.substring(range[1], desc.length));
-        //             }
-        //         }
-        //         this.setState({ new_text: buffer });
-        //     } else {
-        //         this.setState({ new_text: "" });
-        //     }
-        //     console.log(buffer);
-        // } else {
-        //     this.setState({ tag_ranges_showed: "" });
-        //     this.setState({ new_text: "" });
-        // }
     }
 
     tagRangesShownInclude(tagsearch_type_key) {
@@ -432,8 +278,8 @@ class SingleNote extends React.Component {
         return (
             <section className="single_note data_parent">
                 <div className="row">
-                    <section className="single_note_description_section">
-                        <section className="single_note_type_identifier"
+                    <div className="single_note_description_zone">
+                        <div className="single_note_type_identifier"
                             style={{ height: (this.state.clicked_class === "clicked" ? this.state.identifier_height_clicked : this.state.identifier_height) + "px" }}
                         >
                             <div className="identifier_header">
@@ -452,7 +298,7 @@ class SingleNote extends React.Component {
                               </button>
                             </div>
                             <div
-                                className="identifier_tagzone"
+                                className="identifier_tag_zone"
                                 ref={this.tagzone_ref}
                             >
                                 {
@@ -472,9 +318,9 @@ class SingleNote extends React.Component {
                                     )
                                 }
                             </div>
-                        </section>
-                        <section className="single_note_title">{this.props.data_obj.title}</section>
-                        <section
+                        </div>
+                        <div className="single_note_title">{this.props.data_obj.title}</div>
+                        <div
                             className="single_note_description"
                             // onClick={this.handleDescrClick}
                             ref={this.descrarea_ref}
@@ -497,16 +343,16 @@ class SingleNote extends React.Component {
                                     )
                                 )
                             }
-                        </section>
-                    </section>
-                    <section className="single_note_edit_btn_section">
+                        </div>
+                    </div>
+                    <div className="single_note_edit_btn_zone">
                         <button
                             className="edit_context_btn material-icons noselect"
                             onClick={() => this.props.openMenuActivitySlider("edit_panel", this.props.data_obj)}
                         >
                             edit
                       </button>
-                    </section>
+                    </div>
                 </div>
             </section>
         );
@@ -638,7 +484,7 @@ class App extends React.Component {
     render() {
         return (
             <section id="app" className={`lightdark_w_color ${this.state.darkmode_state} ${this.state.menu_state} ${(this.state.modal_open ? "modal_open" : "")}`}>
-                <section id="page-wrapper">
+                <div id="page-wrapper">
                     <section id="page_subject">
                         <h1>Fish Tacos</h1>
                         {
@@ -656,7 +502,7 @@ class App extends React.Component {
                         }
 
                     </section>
-                </section>
+                </div>
                 <FocusTrap
                     active={this.state.menu_focustrap_state}
                 >
@@ -775,8 +621,8 @@ class Menu extends React.Component {
     render() {
         const is_slider_open = this.props.menu_state === "activity_panel_slider_open";
         return (
-            <section id="menu">
-                <section id="section-addnew">
+            <div id="menu">
+                <div id="addnew_zone">
                     <button
                         id="addnew"
                         className="material-icons noselect"
@@ -784,8 +630,8 @@ class Menu extends React.Component {
                     >
                         add
                   </button>
-                </section>
-                <section id="nav_menu_btns">
+                </div>
+                <nav id="nav_menu_btns">
                     <button
                         id="view_notebooks_btn"
                         className={(is_slider_open && this.props.menu_data_state === "notebooks_panel") ? "notebooks_panel" : ""}
@@ -806,7 +652,7 @@ class Menu extends React.Component {
                     </div>
 
                     {/* <span className="input_width_placeholder"></span> */}
-                </section>
+                </nav>
                 <ActivityPanelSlider
                     menu_data_state={this.props.menu_data_state}
                     app_type_metadata={this.props.app_type_metadata}
@@ -817,7 +663,7 @@ class Menu extends React.Component {
                     modal_return={this.props.modal_return}
                     darkmode_state={this.props.darkmode_state}
                 />
-            </section>
+            </div>
         );
     }
 }
@@ -827,7 +673,7 @@ class ActivityPanelSlider extends React.Component {
     render() {
         const menu_data_state = this.props.menu_data_state;
         return (
-            <section id="activity_panel_slider">
+            <div id="activity_panel_slider">
                 {(menu_data_state === "add_panel" || menu_data_state === "edit_panel") ? (
                     <AddEditPanel
                         menu_data_state={menu_data_state}
@@ -843,7 +689,7 @@ class ActivityPanelSlider extends React.Component {
                             darkmode_state={this.props.darkmode_state}
                         />
                     )}
-            </section>
+            </div>
         );
     }
 }
@@ -937,8 +783,8 @@ class NotebookPanel extends React.Component {
         // });
         // this.state.remote.off('value', notebooks_change);
 
-
-        this.remote = firebase.database().ref().on('value', snap => {
+        this.remote = firebase.database().ref();
+        this.remote.on('value', snap => {
             const user_ref = snap.child('users').child(this.state.userid);
             const notebooks_ref = snap.child('notebooks_surface_metadata');
             this.setState({
@@ -955,7 +801,6 @@ class NotebookPanel extends React.Component {
 
     componentWillUnmount() {
         this.remote.off();
-        console.log("toothy")
     }
 
     setDefault(type_key) {
@@ -974,7 +819,7 @@ class NotebookPanel extends React.Component {
 
     render() {
         return (
-            <section id="notebookpanel">
+            <div id="notebookpanel">
                 <div id="notebook_big_svg_wrapper">
                     <div id="notebook_big_svg">
                         <NotebookBig />
@@ -982,9 +827,9 @@ class NotebookPanel extends React.Component {
                 </div>
 
                 {(this.state.notebookpanel_state === "list") ?
-                    <section id="notebooks_section_wrapper">
-                        <section id="notebooks_section">
-                            <section id="add_new_notebook">
+                    <div id="notebooks_zone_wrapper">
+                        <div id="notebooks_zone">
+                            <div id="add_new_notebook">
                                 <button
                                     id="add_new_notebook_btn"
                                     className="lightdark material-icons"
@@ -992,14 +837,14 @@ class NotebookPanel extends React.Component {
                                 >
                                     add
                                 </button>
-                            </section>
+                            </div>
 
                             {
                                /*this.state.user_notebooks != null &&*/ Object.entries(this.state.user_notebooks).map(([type_key, type_value]) =>
                                 <section
                                     key={type_key}
                                     className="notebook_section lightdark">
-                                    <section className="options">
+                                    <div className="options">
                                         <button
                                             className="visit_btn lightdark_w_color material-icons"
                                         // onClick={() => this.setState({
@@ -1018,20 +863,20 @@ class NotebookPanel extends React.Component {
                                         >
                                             settings
                                             </button>
-                                    </section>
-                                    <section className="notebook_summary">
-                                        <section className="display_title_section">
+                                    </div>
+                                    <div className="notebook_summary">
+                                        <div className="display_title_zone">
                                             <h1 className="notebook_summary_field lightdark display_title">
                                                 {this.state.user_notebook_objects[type_key].title}
                                             </h1>
-                                        </section>
-                                        <section className="lastupdate_section">
+                                        </div>
+                                        <div className="lastupdate_zone">
                                             <span>Last updated:</span>
                                             <h2 className="notebook_summary_field lightdark lastupdate">
                                                 {new Date(this.state.user_notebook_objects[type_key].lastupdate * 1000).toLocaleString()}
                                             </h2>
-                                        </section>
-                                        <section className="yourroles_section">
+                                        </div>
+                                        <div className="yourroles_zone">
                                             <span>Your roles:</span>
                                             {
                                                 type_value.map(role =>
@@ -1043,8 +888,8 @@ class NotebookPanel extends React.Component {
                                                     </span>
                                                 )
                                             }
-                                        </section>
-                                    </section>
+                                        </div>
+                                    </div>
                                     <button
                                         title="set default notebook"
                                         className={`is_default is_default_notebook lightdark ${this.state.default_notebook === type_key ? "clicked" : ""} material-icons`}
@@ -1055,8 +900,8 @@ class NotebookPanel extends React.Component {
                                 </section>
                             )
                             }
-                        </section>
-                    </section>
+                        </div>
+                    </div>
                     : (
                         <NotebookAddEdit
                             notebookpanel_state={this.state.notebookpanel_state}
@@ -1067,7 +912,7 @@ class NotebookPanel extends React.Component {
                         />
                     )
                 }
-            </section>
+            </div>
         );
     }
 }
@@ -1145,8 +990,9 @@ class NotebookAddEdit extends React.Component {
         }
         this.input_ref = React.createRef();
         this.handleTitleChange = this.handleTitleChange.bind(this);
-        this.addTypeGenSection = this.addTypeGenSection.bind(this);
+        this.addTypeGenZone = this.addTypeGenZone.bind(this);
         this.handleTypeNameChange = this.handleTypeNameChange.bind(this);
+        this.generateNotebookObject = this.generateNotebookObject.bind(this);
     }
 
 
@@ -1211,9 +1057,40 @@ class NotebookAddEdit extends React.Component {
         value.length <= 50 && this.setState({ title: value });
     }
 
-    // generateNotebookObject() {
-
-    // }
+    generateNotebookObject() {
+        let new_type_subtype_metadata = {
+            color_scheme: {},
+            name_titles_table: {},
+            note_type: {},
+            types_subtypes: {}
+        };
+        const gens = [...this.state.type_subtype_gens];
+        let gens_names = [];
+        for (let i = 0; i < gens.length; i++) {
+            // new_type_subtype_metadata[gens[i].name] = 
+            gens_names.push(gens[i].name);
+            if (gens[i].subtypes.length) {
+                let subtypes = gens[i].subtypes.map((subtype) => {
+                    return subtype.name;
+                });
+                new_type_subtype_metadata.types_subtypes[gens[i].name] = subtypes;
+            } else {
+                new_type_subtype_metadata.types_subtypes[gens[i].name] = "";
+            }
+        }
+        for (let i = 0; i < gens_names.length; i++) {
+            const tagsearches_arr = gens_names.filter(name => (name !== gens_names[i] && name !== this.state.note_type));
+            let tagsearches_obj = {};
+            for (let i = 0; i < tagsearches_arr.length; i++) {
+                tagsearches_obj[tagsearches_arr[i]] = new_type_subtype_metadata.types_subtypes[tagsearches_arr[i]];
+            }
+            new_type_subtype_metadata[gens_names[i]] = {
+                ...(gens_names[i] !== this.state.note_type && { orphanable: true}),
+                tagsearches: tagsearches_obj
+            }
+        }
+        console.log(new_type_subtype_metadata);
+    }
 
     handleTypeNameChange(e, index) {
         if (e.target.value.length < 40) {
@@ -1244,7 +1121,7 @@ class NotebookAddEdit extends React.Component {
         }
     }
 
-    addTypeGenSection() {
+    addTypeGenZone() {
         const type_subtype_gens = _.cloneDeep(this.state.type_subtype_gens);
         const name_titles_table = { ...this.state.name_titles_table };
         const name = firebase.database().ref().push().key;
@@ -1262,7 +1139,7 @@ class NotebookAddEdit extends React.Component {
         });
     }
 
-    addSubtypeGenSection(index) {
+    addSubtypeGenZone(index) {
         const type_subtype_gens = _.cloneDeep(this.state.type_subtype_gens);
         const name_titles_table = { ...this.state.name_titles_table };
         const name = firebase.database().ref().push().key;
@@ -1283,7 +1160,7 @@ class NotebookAddEdit extends React.Component {
         });
     }
 
-    removeTypeGenSection(index) {
+    removeTypeGenZone(index) {
         const type_subtype_gens = _.cloneDeep(this.state.type_subtype_gens);
         const name_titles_table = { ...this.state.name_titles_table };
         const name = type_subtype_gens[index]["name"];
@@ -1304,7 +1181,7 @@ class NotebookAddEdit extends React.Component {
         });
     }
 
-    removeSubtypeGenSection(index, subindex) {
+    removeSubtypeGenZone(index, subindex) {
         const type_subtype_gens = _.cloneDeep(this.state.type_subtype_gens);
         const name_titles_table = { ...this.state.name_titles_table };
         const name = type_subtype_gens[index]["subtypes"][subindex]["name"];
@@ -1425,9 +1302,9 @@ class NotebookAddEdit extends React.Component {
 
     render() {
         return (
-            <section id="notebook_addedit_wrapper">
-                <section id="notebook_addedit">
-                    <section id="return_to_list">
+            <div id="notebook_addedit_wrapper">
+                <div id="notebook_addedit">
+                    <div id="return_to_list">
                         <button
                             id="return_to_list_btn"
                             className="lightdark"
@@ -1435,24 +1312,24 @@ class NotebookAddEdit extends React.Component {
                         >
                             return to list
                         </button>
-                    </section>
-                    <section id="composition_border_wrapper" className="lightdark">
+                    </div>
+                    <section id="composition" className="lightdark">
                         <input
                             id="notebook_addedit_title"
                             className="notebook_summary_field lightdark"
                             value={this.state.title}
                             onChange={this.handleTitleChange}
                         />
-                        <section id="type_subtype_generation_section">
-                            <section id="type_subtype_gen_wrapper">
+                        <div id="type_subtype_generation_zone">
+                            <div id="type_subtype_gen_wrapper">
                                 {
                                     this.state.type_subtype_gens.map((type_subtype, index) =>
-                                        <section
+                                        <div
                                             key={`type_subtype_gen_${index}`}
-                                            className="type_gen_section"
+                                            className="type_gen_zone"
                                         >
-                                            <section className="type_gen_wrapper">
-                                                <section className={`type_gen notebook_summary_field ${this.state.note_type === type_subtype.name ? "note_type" : ""} lightdark`}>
+                                            <div className="type_gen_wrapper">
+                                                <div className={`type_gen notebook_summary_field ${this.state.note_type === type_subtype.name ? "note_type" : ""} lightdark`}>
                                                     <button
                                                         title="default type"
                                                         className="is_default is_default_type noselect lightdark material-icons"
@@ -1521,12 +1398,12 @@ class NotebookAddEdit extends React.Component {
                                                     {(index !== 0) &&
                                                         <button
                                                             className="remove_type_gen_btn noselect material-icons"
-                                                            onClick={() => this.removeTypeGenSection(index)}
+                                                            onClick={() => this.removeTypeGenZone(index)}
                                                         >
                                                             clear
                                                         </button>
                                                     }
-                                                </section>
+                                                </div>
                                                 <TypeSubtypeOptionsDrawer
                                                     name={type_subtype.name}
                                                     drawer_open={this.state.drawer_open}
@@ -1538,14 +1415,14 @@ class NotebookAddEdit extends React.Component {
                                                     setColor={(color, index, subindex) => this.setColor(color, index, subindex)}
                                                     colors_btn_clicked={this.state.colors_btn_clicked}
                                                 />
-                                            </section>
-                                            <section className="subtype_gen_section">
+                                            </div>
+                                            <div className="subtype_gen_zone">
                                                 {
                                                     type_subtype["subtypes"].map((subtype, subindex) =>
-                                                        <section
+                                                        <div
                                                             key={`subtype_gen_${subindex}`}
                                                             className="subtype_gen_wrapper">
-                                                            <section className="subtype_gen notebook_summary_field lightdark">
+                                                            <div className="subtype_gen notebook_summary_field lightdark">
                                                                 <button
                                                                     title="default subtype"
                                                                     className="is_default is_default_subtype noselect lightdark material-icons"
@@ -1600,11 +1477,11 @@ class NotebookAddEdit extends React.Component {
                                                                 /> */}
                                                                 <button
                                                                     className="remove_subtype_gen_btn noselect material-icons"
-                                                                    onClick={() => this.removeSubtypeGenSection(index, subindex)}
+                                                                    onClick={() => this.removeSubtypeGenZone(index, subindex)}
                                                                 >
                                                                     clear
                                                                 </button>
-                                                            </section>
+                                                            </div>
                                                             <TypeSubtypeOptionsDrawer
                                                                 name={subtype.name}
                                                                 drawer_open={this.state.drawer_open}
@@ -1616,41 +1493,44 @@ class NotebookAddEdit extends React.Component {
                                                                 setColor={(color, index, subindex) => this.setColor(color, index, subindex)}
                                                                 colors_btn_clicked={this.state.colors_btn_clicked}
                                                             />
-                                                        </section>
+                                                        </div>
                                                     )
                                                 }
                                                 <button
                                                     className="add_subtype_gen_btn lightdark material-icons"
-                                                    onClick={() => this.addSubtypeGenSection(index)}
+                                                    onClick={() => this.addSubtypeGenZone(index)}
                                                 >
                                                     add
                                                 </button>
-                                            </section>
-                                        </section>
+                                            </div>
+                                        </div>
                                     )
                                 }
                                 <button
                                     className="add_type_gen_btn lightdark material-icons"
-                                    onClick={this.addTypeGenSection}
+                                    onClick={this.addTypeGenZone}
                                 >
                                     add
-                        </button>
-                            </section>
+                                </button>
+                            </div>
 
-                        </section>
-                        <section className="bottom_options">
-                            <button id="notebook_addedit_confirm"></button>
+                        </div>
+                        <div className="bottom_options">
+                            <button
+                                id="notebook_addedit_confirm"
+                                onClick={this.generateNotebookObject}
+                            ></button>
                             <button
                                 className={`is_default is_default_notebook lightdark ${this.state.default_notebook === this.state.notebook_name ? "clicked" : ""} material-icons`}
                             // onClick={() => this.props.setDefault(type_key)}
                             >
                                 favorite_border
                             </button>
-                        </section>
+                        </div>
 
                     </section>
-                </section>
-            </section>
+                </div>
+            </div>
         )
     }
 }
@@ -1680,15 +1560,15 @@ class TypeSubtypeOptionsDrawer extends React.Component {
                 className={`type_subtype_optionsdrawer_wrapper ${(this.props.drawer_open[0] === true && this.props.drawer_open[1] === this.props.name) ? "open" : ""}`}
                 style={{ height: ((this.props.drawer_open[0] === true && this.props.drawer_open[1] === this.props.name) ? this.state.drawer_height_clicked : this.state.drawer_height) + "px" }}
             >
-                <section className={`type_subtype_optionsdrawer lightdark`} >
-                    <section className="optionsdrawer_top_btns">
+                <div className={`type_subtype_optionsdrawer lightdark`} >
+                    <div className="optionsdrawer_top_btns">
                         <button
                             className="close_optionsdrawer_btn material-icons"
                             onClick={this.props.closeOptionsDrawer}
                         >
                             clear
                         </button>
-                    </section>
+                    </div>
                     <ColorPicker
                         name={this.props.name}
                         index={this.props.index}
@@ -1700,7 +1580,7 @@ class TypeSubtypeOptionsDrawer extends React.Component {
                         setColor={(color, index, subindex) => this.props.setColor(color, index, subindex)}
                         colors_btn_clicked={this.props.colors_btn_clicked}
                     />
-                </section>
+                </div>
             </div>
         )
     };
@@ -1709,8 +1589,8 @@ class TypeSubtypeOptionsDrawer extends React.Component {
 class ColorPicker extends React.Component {
     render() {
         return (
-            <section className="color_picker_section">
-                <section
+            <div className="color_picker_zone">
+                <div
                     className="color_picker_btn_container"
                     ref={this.props.setRef}
                 >
@@ -1724,11 +1604,11 @@ class ColorPicker extends React.Component {
                             ></button>
                         )
                     }
-                </section>
-                <section className="color_picker_drawer_close">
+                </div>
+                <div className="color_picker_drawer_close">
 
-                </section>
-            </section>
+                </div>
+            </div>
 
         )
     };
@@ -1806,7 +1686,6 @@ class AddEditPanel extends React.Component {
     }
 
     adjustRanges(e) {
-        console.log("onchange");
         const target = e.target;
         let keydown_cutpaste_sel_start = parseInt(this.state.descr_keydown_cutpaste_selection_endpoints.split(",")[0]);
         let keydown_cutpaste_sel_end = parseInt(this.state.descr_keydown_cutpaste_selection_endpoints.split(",")[1]);
@@ -1894,7 +1773,7 @@ class AddEditPanel extends React.Component {
         const value = target.value;
         const name = target.name;
 
-        this.adjustRanges(e);
+        target.className.includes("descr_area") && this.adjustRanges(e);
 
         this.setState(prevState => ({
             curr_tag: {                   // object that we want to update
@@ -2016,7 +1895,7 @@ class AddEditPanel extends React.Component {
             }
         }
         return (
-            <section id="addeditpanel">
+            <div id="addeditpanel">
                 <TypeSubtypeSelection
                     types_subtypes={(this.props.menu_data_state === "add_panel" ? this.props.app_type_metadata["types_subtypes"] : editcontext_type_subtypes)}
                     type_checked={this.state.curr_tag.meta_type}
@@ -2024,7 +1903,7 @@ class AddEditPanel extends React.Component {
                     handleTypeClick={(text) => this.handleTypeClick(text)}
                     handleSubtypeClick={(text) => this.handleSubtypeClick(text)}
                 />
-                <section className="addeditpanel_type_section">
+                <div className="addeditpanel_type_zone">
                     <AddeditpanelTitleDescr
                         curr_tag={this.state.curr_tag}
                         app_type_metadata={this.props.app_type_metadata}
@@ -2034,7 +1913,7 @@ class AddEditPanel extends React.Component {
                         handleDescrOnKeyDown={(e) => this.handleDescrOnKeyDown(e)}
                         handleDescrOnCutPaste={(e) => this.handleDescrOnCutPaste(e)}
                     />
-                </section>
+                </div>
                 {(this.state.curr_tag.meta_type != null && this.state.curr_tag.meta_type !== "") &&
                     Object.entries(this.props.app_type_metadata[this.state.curr_tag.meta_type].tagsearches).map(([type_key, type_value]) =>
                         <TagSearch
@@ -2055,7 +1934,7 @@ class AddEditPanel extends React.Component {
                         />
                     )
                 }
-            </section>
+            </div>
         );
     }
 }
@@ -2451,7 +2330,7 @@ class TagSearch extends React.Component {
     }
 
     inputRefocus(e) {
-        if (e.target.className.includes("addedittag_section")) {
+        if (e.target.className.includes("addedittag_zone")) {
             if (this.state.curval === "") {
                 let tagarr_LHS = [...this.state.tagarr_LHS];
                 let tagarr_RHS = [...this.state.tagarr_RHS];
@@ -2611,17 +2490,17 @@ class TagSearch extends React.Component {
         )
 
         return (
-            <section className="addeditpanel_field_section_container">
+            <div className="addeditpanel_field_zone_container">
                 <h3>Add or Edit {type_span} Tags</h3>
-                <section className="addeditpanel_field_section">
-                    <section
+                <div className="addeditpanel_field_zone">
+                    <div
                         className="addeditpanel_field_wrapper"
                         tabIndex="-1"
                         onBlur={this.onTagsearchBlur}
                         ref={this.addeditpanel_field_wrapper_ref}
                     >
-                        <section
-                            className="addedittag_section addeditpanel_field"
+                        <div
+                            className="addedittag_zone addeditpanel_field"
                             onClick={this.inputRefocus}
                         >
                             {
@@ -2645,7 +2524,7 @@ class TagSearch extends React.Component {
                                     </span>
                                 )
                             }
-                            <section
+                            <div
                                 className={`search invalid ${(this.state.curval !== "") ? "oninput" : ""} ${(this.state.tagarr_RHS.length) ? "input_before_tags" : ""}`}
                                 style={{ width: (this.state.tagarr_RHS.length ? this.state.input_style_width + "px" : "initial") }}
                             >
@@ -2682,7 +2561,7 @@ class TagSearch extends React.Component {
                                 >
                                     {this.state.curval}
                                 </div>
-                            </section>
+                            </div>
                             {
                                 this.state.tagarr_RHS.map(tagobj =>
                                     <span
@@ -2705,13 +2584,13 @@ class TagSearch extends React.Component {
                                     </span>
                                 )
                             }
-                        </section>
-                        <section
-                            className={`add_descr_ranges_section`}
+                        </div>
+                        <div
+                            className={`add_descr_ranges_zone`}
                             style={{ height: (show_descr ? this.state.rangedescr_height_clicked : 0) + "px" }}
                         // tabIndex="-1"
                         >
-                            <section
+                            <div
                                 className={`add_descr_ranges`}
                                 ref={this.add_descr_ranges_ref}
                                 onMouseLeave={this.onRangeMouseLeave}
@@ -2721,11 +2600,11 @@ class TagSearch extends React.Component {
                             >
                                 {this.state.new_text === "" ? this.props.curr_tag.preliminary_description : this.state.new_text}
                                 {/* {this.props.curr_tag.preliminary_description} */}
-                            </section>
-                        </section>
-                    </section>
-                </section>
-            </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
@@ -2759,10 +2638,10 @@ class AddeditpanelTitleDescr extends React.Component {
 
     render() {
         return (
-            <section className="addeditpanel_field_section_container">
+            <div className="addeditpanel_field_zone_container">
                 <h3>Add or Edit Description</h3>
-                <section className="addeditpanel_field_section">
-                    <section className="addeditpanel_field_wrapper">
+                <div className="addeditpanel_field_zone">
+                    <div className="addeditpanel_field_wrapper">
                         <div className="title_descr_padding_wrapper">
                             <textarea
                                 name="title"
@@ -2787,9 +2666,9 @@ class AddeditpanelTitleDescr extends React.Component {
                         <div className="test_btn_area">
                             <button className="material-icons">add_photo_alternate</button>
                         </div>
-                    </section>
-                </section>
-            </section>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
@@ -2797,8 +2676,8 @@ class AddeditpanelTitleDescr extends React.Component {
 class TypeSubtypeSelection extends React.Component {
     render() {
         return (
-            <section id="type_subtype_selection">
-                <section id="type_subtype_btns">
+            <div id="type_subtype_selection">
+                <div id="type_subtype_btns">
                     {
                         Object.entries(this.props.types_subtypes).map(([type_key, type_value]) =>
                             <TypeSubtypeArea
@@ -2812,8 +2691,8 @@ class TypeSubtypeSelection extends React.Component {
                             />
                         )
                     }
-                </section>
-            </section>
+                </div>
+            </div>
         );
     }
 }
@@ -2844,15 +2723,15 @@ class TypeSubtypeArea extends React.Component {
                     {this.props.type_key}
                 </button>
                 {(type_value != null && type_value.constructor.name === "Object" && Object.entries(type_value).length !== 0) &&
-                    <section
-                        className="subtype_area"
+                    <div
+                        className="subtype_zone"
                         style={{ height: (this.props.type_key === this.props.type_checked ? this.state.subtype_parent_flex_height : 0) + "px" }}
                     >
-                        <section
+                        <div
                             className="subtype_parent_flex row"
                             ref={this.subtype_parent_flex_ref}
                         >
-                            <section className="column">
+                            <div className="column">
                                 {
                                     this.props.type_value.map((subtype_value, index) =>
                                         (index % 2 === 0) &&
@@ -2865,8 +2744,8 @@ class TypeSubtypeArea extends React.Component {
                                         </button>
                                     )
                                 }
-                            </section>
-                            <section className="column">
+                            </div>
+                            <div className="column">
                                 {
                                     this.props.type_value.map((subtype_value, index) =>
                                         (index % 2 !== 0) &&
@@ -2879,9 +2758,9 @@ class TypeSubtypeArea extends React.Component {
                                         </button>
                                     )
                                 }
-                            </section>
-                        </section>
-                    </section>
+                            </div>
+                        </div>
+                    </div>
                 }
             </>
         );
