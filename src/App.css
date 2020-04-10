@@ -1677,7 +1677,7 @@ width: 100%;
   background-color: #ffc107;
 }
 
-.orphanable_btn {
+/* .orphanable_btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1690,7 +1690,7 @@ width: 100%;
 
 .orphanable_btn.clicked {
   color: goldenrod;
-}
+} */
 
 .type_subtype_color_btn_container {
   position: relative;
@@ -2474,3 +2474,185 @@ mark.ranges_mark:focus .clearbtn {
 - (DONE) utlimately modify height of addedit panel such that it is as high as it needs to be, and not fixed by css height 
 
 */
+
+
+
+
+/* #path2158 {
+  transform: translate(0px,0px);
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+#path2160 {
+  transform: translate(0px,0px);
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+#path2162 {
+  transform: translate(0px,0px);
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+#path2164 {
+  transform: translate(0px,0px);
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+#path2166 {
+  transform: translate(0px,0px);
+  transform: translate(0px,-5px);
+}
+#path2168 {
+  transform: translate(0px,0px);
+  transform: translate(0px,-9px);
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+#path2170 {
+  transform: translate(0px,0px);
+  transform: translate(0px,-14px);
+  animation-duration: 2s;
+} */
+
+
+
+
+
+
+
+
+:root {
+  --animation_timing: linear;
+  --animation_duration: 1s;
+}
+
+
+#path2166 {
+  transform: translate(0px,0px);
+  animation-name: g;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+}
+/* #path1394 {
+  transform: translate(0px,0px);
+  animation-name: g;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+} */
+#path2168 {
+  transform: translate(0px,0px);
+  animation-name: h;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+}
+#path2170 {
+  transform: translate(0px,0px);
+  animation-name: i;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+}
+
+@keyframes g {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(0px,-5px);}
+}
+@keyframes h {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(0px,-9px);}
+}
+@keyframes i {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(0px,-14px);}
+}
+
+
+
+/* #path2158 {
+  transform: translate(0px,0px);
+  animation-name: a;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+}
+#path2160 {
+  transform: translate(0px,0px);
+  animation-name: b;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+}
+#path2162 {
+  transform: translate(0px,0px);
+  animation-name: c;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+}
+#path2164 {
+  transform: translate(0px,0px);
+  animation-name: d;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+}
+#path2166 {
+  transform: translate(0px,0px);
+}
+#path2168 {
+  transform: translate(0px,0px);
+  animation-name: e;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+}
+#path2170 {
+  transform: translate(0px,0px);
+  animation-name: f;
+  animation-duration: var(--animation_duration);
+  animation-direction: alternate;
+  animation-timing-function: var(--animation_timing);
+  animation-iteration-count: infinite;
+} */
+
+/* transform: translate(-2px,-6px); */
+
+
+
+
+@keyframes a {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(0px,7px);}
+}
+@keyframes b {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(-1px,8px);}
+}
+@keyframes c {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(-1px,8px);}
+}
+@keyframes d {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(-1px,7px);}
+}
+@keyframes e {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(-2px,-1px);}
+}
+@keyframes f {
+  from {transform: translate(0px,0px);}
+  to {transform: translate(-2px,-5px);}
+}

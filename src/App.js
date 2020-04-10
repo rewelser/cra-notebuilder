@@ -943,7 +943,7 @@ class NotebookAddEdit extends React.Component {
             generic_tag: {},
             colors_btn_clicked: "",
             renaming: "",
-            orphanables: [],
+            // orphanables: [],
             drawer_open: [false, ""],
             default_notebook: "",
             color_choices: [
@@ -1012,7 +1012,7 @@ class NotebookAddEdit extends React.Component {
                     default_notebook: user_ref.child("default_notebook").val(),
                     title: notebook_ref.child("title").val(),
                     name_titles_table: type_subtype_metadata.child("name_titles_table").val(),
-                    type_subtype_metadata: type_subtype_metadata.child("types_subtypes").val(),
+                    type_subtype_metadata: type_subtype_metadata.val(),
                     generic_tag: generic_tag.val()
                 });
                 let types_subtypes = type_subtype_metadata.child("types_subtypes").val();
@@ -1066,11 +1066,14 @@ class NotebookAddEdit extends React.Component {
         };
         const gens = [...this.state.type_subtype_gens];
         let gens_names = [];
+
+        // populating types_subtypes object & color_scheme object
         for (let i = 0; i < gens.length; i++) {
-            // new_type_subtype_metadata[gens[i].name] = 
             gens_names.push(gens[i].name);
+            new_type_subtype_metadata.color_scheme[gens[i].name] = gens[i].color;
             if (gens[i].subtypes.length) {
                 let subtypes = gens[i].subtypes.map((subtype) => {
+                    new_type_subtype_metadata.color_scheme[subtype.name] = subtype.color;
                     return subtype.name;
                 });
                 new_type_subtype_metadata.types_subtypes[gens[i].name] = subtypes;
@@ -1078,6 +1081,8 @@ class NotebookAddEdit extends React.Component {
                 new_type_subtype_metadata.types_subtypes[gens[i].name] = "";
             }
         }
+
+        // populating actual type and subtype objects
         for (let i = 0; i < gens_names.length; i++) {
             const tagsearches_arr = gens_names.filter(name => (name !== gens_names[i] && name !== this.state.note_type));
             let tagsearches_obj = {};
@@ -1085,10 +1090,18 @@ class NotebookAddEdit extends React.Component {
                 tagsearches_obj[tagsearches_arr[i]] = new_type_subtype_metadata.types_subtypes[tagsearches_arr[i]];
             }
             new_type_subtype_metadata[gens_names[i]] = {
-                ...(gens_names[i] !== this.state.note_type && { orphanable: true}),
+                // ...(gens_names[i] !== this.state.note_type && { orphanable: true}),
                 tagsearches: tagsearches_obj
             }
         }
+
+        // populating names_titles_table
+        new_type_subtype_metadata["name_titles_table"] = { ...this.state.name_titles_table };
+
+        // populating note_type
+        new_type_subtype_metadata.note_type = this.state.note_type;
+
+
         console.log(new_type_subtype_metadata);
     }
 
@@ -1260,15 +1273,15 @@ class NotebookAddEdit extends React.Component {
         });
     }
 
-    setOrphanables(name) {
-        const orphanables = [...this.state.orphanables];
-        if (orphanables.includes(name)) {
-            orphanables.splice(orphanables.indexOf(name), 1);
-        } else {
-            orphanables.push(name);
-        }
-        this.setState({ orphanables: orphanables });
-    }
+    // setOrphanables(name) {
+    //     const orphanables = [...this.state.orphanables];
+    //     if (orphanables.includes(name)) {
+    //         orphanables.splice(orphanables.indexOf(name), 1);
+    //     } else {
+    //         orphanables.push(name);
+    //     }
+    //     this.setState({ orphanables: orphanables });
+    // }
 
     lightdarkColorCalc(index, subindex) {
         let tagcolor = (subindex === -1) ? this.state.type_subtype_gens[index].color : this.state.type_subtype_gens[index].subtypes[subindex].color;
@@ -1373,7 +1386,7 @@ class NotebookAddEdit extends React.Component {
                                                             ref={this.input_ref}
                                                         />
                                                     }
-                                                    {
+                                                    {/* {
                                                         (this.state.note_type !== type_subtype.name) &&
                                                         <button
                                                             className={`orphanable_btn noselect ${this.state.orphanables.includes(type_subtype.name) ? "clicked" : ""} noselect lightdark material-icons`}
@@ -1381,7 +1394,7 @@ class NotebookAddEdit extends React.Component {
                                                         >
                                                             face
                                                         </button>
-                                                    }
+                                                    } */}
                                                     <div className="type_subtype_color_btn_container">
                                                         <button
                                                             className={`type_subtype_color_btn noselect ${type_subtype.name === this.state.colors_btn_clicked ? "clicked" : ""}`}
